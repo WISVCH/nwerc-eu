@@ -1,0 +1,33 @@
+{% load cms_tags sekizai_tags menu_tags %}
+<html>
+  <head>
+      {% render_block "css" %}
+      <link rel="stylesheet" href="{{STATIC_URL}}css/style.css">
+  </head>
+  <body>
+      {% cms_toolbar %}
+      
+      <div id="wrap">
+        <div id="head">
+          <img src="{{STATIC_URL}}img/icpc.png" style="float:right" />
+          <h1>Northwestern European Regional Programming Contest</h1>
+          <h2>November 23-25 2012</h2>
+          
+        </div>
+
+        <ul id="menu">
+          {% show_menu 0 1 1 1%}
+        </ul>
+        
+        <div id="content">
+          {% block content%}{% endblock %}
+        </div>
+      </div>
+
+      <div id="sponsors">
+        <h2>Event sponsors</h2>
+        <p><img src="{{STATIC_URL}}img/FOX-IT.png" /><img src="{{STATIC_URL}}img/IBM.png" /></p>
+      </div>
+      {% render_block "js" %}
+  </body>
+</html>
