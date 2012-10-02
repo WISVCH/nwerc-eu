@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import os
+import ldap
+from django_auth_ldap.config import LDAPSearch, PosixGroupType
 gettext = lambda s: s
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 
@@ -144,6 +146,39 @@ INSTALLED_APPS = (
     'cms.plugins.text',
     'cms.plugins.googlemap',
     'cms.plugins.text'
+)
+
+AUTH_LDAP_SERVER_URI = "ldaps://localhost:5327"
+AUTH_LDAP_BIND_DN = ""
+AUTH_LDAP_BIND_PASSWORD = ""
+AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=ank,dc=chnet", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
+
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=Group,dc=ank,dc=chnet",
+    ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)"
+)
+AUTH_LDAP_GROUP_TYPE = PosixGroupType()
+
+AUTH_LDAP_REQUIRE_GROUP = "cn=chipcie,ou=Commissies,ou=Group,dc=ank,dc=chnet"
+
+AUTH_LDAP_USER_FLAGS_BY_GROUP = {
+    "is_active": "cn=chipcie,ou=Commissies,ou=Group,dc=ank,dc=chnet",
+    # "is_active": "cn=bestuur,ou=Besturen,ou=Group,dc=ank,dc=chnet",
+    "is_staff": "cn=chipcie,ou=Commissies,ou=Group,dc=ank,dc=chnet",
+    # "is_superuser": "cn=chipcie,ou=Commissies,ou=Group,dc=ank,dc=chnet",
+}
+
+AUTH_LDAP_PROFILE_FLAGS_BY_GROUP = {
+    "is_awesome": "cn=bestuur55,ou=Besturen,ou=Group,dc=ank,dc=chnet",
+}
+
+AUTH_LDAP_MIRROR_GROUPS = True
+
+# FIXME: Do not use for deployment!
+AUTH_LDAP_GLOBAL_OPTIONS = { ldap.OPT_X_TLS_REQUIRE_CERT: ldap.OPT_X_TLS_NEVER }
+
+AUTHENTICATION_BACKENDS = (
+    'django_auth_ldap.backend.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 # A sample logging configuration. The only tangible logging
