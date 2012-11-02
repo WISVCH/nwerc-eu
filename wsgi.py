@@ -1,4 +1,8 @@
 import os
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
+
+os.sys.path.append(PROJECT_PATH)
+os.sys.path.append('%s/..' % PROJECT_PATH)
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "nwerc-eu.settings")
 

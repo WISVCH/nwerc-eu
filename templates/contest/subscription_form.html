@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block page-title %}Subscription &mdash; {% endblock %}
+
+{% block content%}
+<h1>Subscription</h1>
+<p>For more information on the activities to the <a href="{% url contest:events %}">activities page</a>.</p>
+<p>You can always change your subscription to an event by returning to this page.</p>
+<form method='post' class='horizontalForm'>
+	{% for error in form.non_field_errors %}
+	<p class="error">{{error}}</p>
+	{% endfor %}
+{% csrf_token %}
+<label>Subscription for:</label> {{object.person}}
+{{form.event.errors}}
+<p><label for="id_event">I want to go on this activity:</label>
+{{form.event}}</p>
+{% if object.person.is_coach %}
+{{form.hotel.errors}}
+<label for="id_hotel">My team will be staying in this hotel: (not required)</label>
+{{form.hotel}}
+{% endif %}
+<button type="submit">Subscribe</button>
+</form>
+{% endblock %}

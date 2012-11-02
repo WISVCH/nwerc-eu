@@ -6,6 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
+    (r'^contest/', include('contest.urls', namespace='contest')),
     url(r'^', include('cms.urls')),
 )
 

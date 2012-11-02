@@ -42,7 +42,7 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(PROJECT_PATH, "../media")
+MEDIA_ROOT = os.path.join(PROJECT_PATH, "media")
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -53,7 +53,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(PROJECT_PATH, '../_static/')
+STATIC_ROOT = os.path.join(PROJECT_PATH, '_static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -69,7 +69,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_PATH, '../static/'),
+    os.path.join(PROJECT_PATH, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -123,6 +123,7 @@ TEMPLATE_DIRS = (
 
 CMS_TEMPLATES = (
     ('default.html', 'Default'),
+    ('home.html', 'Homepage')
 )
 
 INSTALLED_APPS = (
@@ -145,10 +146,17 @@ INSTALLED_APPS = (
 
     'cms.plugins.text',
     'cms.plugins.googlemap',
-    'cms.plugins.text'
+    'cms.plugins.link',
+    'cms.plugins.picture',
+
+    'imagekit',
+    'contest',
 )
 
-AUTH_LDAP_SERVER_URI = "ldaps://localhost:5327"
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_AGE = 1209600
+
+AUTH_LDAP_SERVER_URI = "ldaps://frans.chnet"
 AUTH_LDAP_BIND_DN = ""
 AUTH_LDAP_BIND_PASSWORD = ""
 AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=ank,dc=chnet", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
@@ -180,6 +188,8 @@ AUTHENTICATION_BACKENDS = (
     'django_auth_ldap.backend.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+LOGIN_URL = '/admin/'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

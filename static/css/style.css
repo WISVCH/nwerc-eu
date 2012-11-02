@@ -125,6 +125,7 @@ dt,strong,b{font-weight:700}
 	height:25px;
 	background:#0c3d6e;
 	width:100%;
+	list-style: none;
 }
 #menu li:hover a, #menu li.selected a, #menu li.ancestor a{
 	background:#0c3d6e;
@@ -147,11 +148,12 @@ dt,strong,b{font-weight:700}
 
 #content{
 	padding:10px;
+	overflow:auto;
 }
 
 #sponsors{
 	width:960px;
-	margin:20 auto 10px;
+	margin:20px auto 10px;
 	border:1px #0c3d6e solid;
 	border-top: 0;
 	text-align:center;
@@ -166,5 +168,5 @@ dt,strong,b{font-weight:700}
 }
 #sponsors img{
 	vertical-align:middle;
-	margin:0 30px;
+	margin:0 10px;
 }

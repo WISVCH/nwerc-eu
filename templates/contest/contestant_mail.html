@@ -1,0 +1,18 @@
+Dear {{subscription.person}},
+
+Welcome to the North Western European Regional Contest 2012. Registration for the contest is complete and your team is officially accepted to the contest. We are looking forward of welcoming you in Delft. On Saturday there is a variation of excursions and activities available in the afternoon. 
+Please check http://2012.nwerc.eu{% url contest:subscribe subscription.person.person_id subscription.key %} to select your excursion.
+
+If you are not attending the NWERC, or don't want to have some free time to explore Delft by yourself please don't select an option in the form. If you change your mind, you can change your choice by the same link again. For more information on the contest you can check our website on http://2012.nwerc.eu/.
+
+{% if subscription.person.is_coach %}We have organized for two preffered hotel offers, where a discount is available at the hotels. More details on these are available at https://2012.nwerc.eu/en/location/accomodation/.
+If you want to make use of these offers please use the following information:
+For WestCord hotel, either via mail at delft@westcordhotels.nl or call them at +31-15-8889010 and refer to the group name of "North Western European Regional Contest (NWERC) " and a reference number of WHD-GF3132.
+For Juliana hotel, either via mail at info@hoteljuliana.nl or call them at  +31-15-2567612 and refer to NWERC 2012.
+
+{% endif %}If you have any question according registration, accommodation or organization please do not hesitate to contact us.
+
+On behalf of the organization team,
+
+Thomas Verwoerd
+Contest Director NWERC 2012

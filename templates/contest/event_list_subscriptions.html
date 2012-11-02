@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load placeholder_tags %}
+{% block page-title %}Activities &mdash; {% endblock %}
+
+{% block content %}
+<h1>Activities</h1>
+<p>On this years NWERC we will have {{object_list|length}} activities which are described below.
+<ul>
+	{% for object in object_list %}
+	<li><a href="#event-{{object.pk}}">{{object.title}}</a></li>
+	{% endfor %}
+</ul>	
+</p>
+
+{% for object in object_list %}
+<h2><a id="event-{{object.pk}}"></a>{{object.title}}</h2>
+<h3>{{object.subscriptions.count}}/{{object.max_participants}} subscriptions.</h3>
+<ul>
+{% for subscription in object.subscriptions.all %}
+<li>{{subscription.person}}</li>
+{% endfor %}
+</ul>
+{% endfor %}
+{% endblock %}
