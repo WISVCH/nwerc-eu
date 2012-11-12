@@ -11,8 +11,10 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 
+
 class EventView(ListView):
     model = Event
+
 
 class EventSubscriptionView(ListView):
     model = Event
@@ -21,6 +23,7 @@ class EventSubscriptionView(ListView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(EventSubscriptionView, self).dispatch(*args, **kwargs)
+
         
 class SubscribeView(UpdateView):
     model      = Subscription
@@ -40,8 +43,10 @@ class SubscribeView(UpdateView):
         messages.success(self.request, 'Your subscription has been updated.')
         return super(SubscribeView, self).form_valid(form)
     
+    
 class TeamView(ListView):
     model = Team
+
 
 class ImportView(FormView):
     form_class = ImportForm
@@ -121,7 +126,8 @@ class ImportView(FormView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(ImportView, self).dispatch(*args, **kwargs)
-            
+
+    
 class SendMailsView(TemplateView):
     def get(self, request, *args, **kwargs):
         for person in Person.objects.all():
@@ -133,3 +139,16 @@ class SendMailsView(TemplateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(SendMailsView, self).dispatch(*args, **kwargs)
+
+
+class SendRemindersView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        for subscription in Subscription.objects.all():
+            subscription.get_or_create_reminder()
+        
+        messages.success(request, 'Reminders are sent.')
+        return HttpResponseRedirect('/admin/')
+    
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(SendRemindersView, self).dispatch(*args, **kwargs)

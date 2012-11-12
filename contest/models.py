@@ -8,6 +8,7 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit
 from datetime import datetime
 
+
 class Country(models.Model):
     ICPC_name  = models.CharField(_('ICPC name'), max_length=3)
     name       = models.CharField(_('name'), max_length=55, blank=True, null=True)
@@ -25,6 +26,7 @@ class Country(models.Model):
         verbose_name = _('country')
         verbose_name_plural = _('countries')
 
+
 class Institution(models.Model):
     institution_id = models.IntegerField(_('institution_id'), primary_key=True)
     name           = models.CharField(_('name'), max_length=255, blank=True, null=True)
@@ -36,6 +38,33 @@ class Institution(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class Reminder(models.Model):
+    subscription = models.OneToOneField('Subscription')
+    mail_sent = models.DateTimeField(_('mail sent'), blank=True, null=True)
+    
+    def send_mail(self, force=False):
+        if not force and self.mail_sent:
+            return
+
+        from django.template.loader import render_to_string
+        body = render_to_string('contest/reminder_mail.html', {'subscription':self.subscription})
+        
+        mail = EmailMessage(
+            to         = (self.subscription.person.email,),
+            subject    = 'NWERC Activity reminder',
+            body       = body,
+            from_email = 'NWERC 2012 <orga@nwerc.eu>',
+        )
+        
+        try:
+            mail.send()
+            self.mail_sent = datetime.now()
+            self.save()
+        except Exception, e:
+            raise e
+
 
 class Subscription(models.Model):
     person    = models.OneToOneField('Person')
@@ -81,6 +110,19 @@ class Subscription(models.Model):
         except Exception, e:
             raise e
 
+    def get_or_create_reminder(self):
+        if not self.mail_sent or self.event:
+            print "no reminder"
+            return None
+        
+        try:
+            return Reminder.objects.filter(subscription=self).get()
+        except:
+            reminder = Reminder(subscription=self)
+            reminder.save()
+            reminder.send_mail()
+            return reminder
+
     @staticmethod
     def generate_hash():
         import string
@@ -89,6 +131,7 @@ class Subscription(models.Model):
         chars = string.ascii_letters + string.digits
         return ''.join([random.choice(chars) for x in range(12)])
 
+    
 class TeamPerson(models.Model):
     ROLE_CHOICES = (
         ('CONTESTANT', 'Contestant'),
@@ -100,6 +143,7 @@ class TeamPerson(models.Model):
     person = models.ForeignKey('Person')
     team   = models.ForeignKey('Team')
     role   = models.CharField(_('role'), max_length=15, choices=ROLE_CHOICES)
+
 
 class Person(models.Model):
     person_id        = models.IntegerField(_('person id'), primary_key=True)
@@ -137,6 +181,7 @@ class Person(models.Model):
         
         return subscription
 
+
 class Team(models.Model):
     class Meta:
         ordering = ('name', )
@@ -151,6 +196,7 @@ class Team(models.Model):
 
     def __unicode__(self):
         return self.name
+
 
 class Event(models.Model):
     title            = models.CharField(_('title'), max_length=100)
