@@ -1,4 +1,4 @@
-from models import Person, Team, TeamPerson, Institution, Country, Event, Subscription
+from models import Person, Team, TeamPerson, Institution, Country, Event, Subscription, Computer, TeamPlacement
 from django.contrib import admin
 from cms.admin.placeholderadmin import PlaceholderAdmin
 
@@ -24,8 +24,8 @@ class CountryAdmin(admin.ModelAdmin):
     list_editable = ('name', 'iso_3166_1')
 
 class InstitutionAdmin(admin.ModelAdmin):
-    list_display = ('name', 'logo')
-    list_editable = ('logo',)
+    list_display = ('name', 'short_name', 'logo')
+    list_editable = ('short_name', 'logo',)
 
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Team, TeamAdmin)
@@ -33,3 +33,5 @@ admin.site.register(Team, TeamAdmin)
 admin.site.register(Institution, InstitutionAdmin)
 admin.site.register(Country, CountryAdmin)
 admin.site.register(Event, PlaceholderAdmin)
+admin.site.register(Computer)
+admin.site.register(TeamPlacement)

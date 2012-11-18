@@ -210,3 +210,32 @@ class Event(models.Model):
         verbose_name = _('activity')
         verbose_name_plural = _('activities')
         ordering = ['title',]
+
+
+class Computer(models.Model):
+    TYPE_CHOICES = (
+        ('team', 'Team'),
+        ('jury', 'Jury'),
+        ('free', 'Free / scoreboard'),
+        ('aj', 'Autojudge'),
+        ('broken', 'Broken')
+    )
+    
+    nwerc_number = models.CharField(_('nwerc number'), max_length=12, unique=True)
+    TUD_number   = models.CharField(_('TUD number'), blank=True, null=True, max_length=12, unique=True)
+    ip           = models.CharField(_('ip'), blank=True, null=True, max_length=15)
+    mac_address  = models.CharField(_('mac address'), blank=True, null=True, max_length=17)
+    
+    computer_type = models.CharField(blank=True, max_length=6, choices=TYPE_CHOICES)
+
+    def __unicode__(self):
+        return self.nwerc_number
+
+
+class TeamPlacement(models.Model):
+    team     = models.ForeignKey(Team)
+    computer = models.ForeignKey(Computer)
+    username = models.CharField(_('username'), blank=True, null=True, max_length=15)
+
+    def __unicode__(self):
+        return "%s %s" % (self.computer.nwerc_number, self.team.name)
