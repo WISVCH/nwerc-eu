@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
+from django.db.models.signals import post_save
 
 from cms.models.fields import PlaceholderField
 from imagekit.models import ImageSpecField
@@ -239,3 +240,50 @@ class TeamPlacement(models.Model):
 
     def __unicode__(self):
         return "%s %s" % (self.computer.nwerc_number, self.team.name)
+
+
+class CountriesAlpha3(models.Model):
+    code = models.CharField(_('code'), max_length=3, primary_key=True)
+    name = models.CharField(_('name'), max_length=255)
+    
+    def __unicode__(self):
+        return self.name
+
+
+class LiveContestRegistration(models.Model):
+    login = models.CharField(_('login'), max_length=15, unique=True)
+    password = models.CharField(_('password'), blank=True, null=True, max_length=100)
+
+    email = models.EmailField(_('email'))
+    name = models.CharField(_('team name'), max_length=255, unique=True)
+    members = models.TextField(_('members'), blank=True)
+    country = models.ForeignKey(CountriesAlpha3)
+
+    def clean(self):
+        if not self.password:
+            self.password = Subscription.generate_hash()
+            
+    def __unicode__(self):
+        return self.name
+    
+
+def livecontest_created(sender, instance, created, **kwargs):
+    if not created:
+        return
+    
+    from django.template.loader import render_to_string
+    body = render_to_string('contest/livecontestregistration_mail.html', {'registration':instance})
+        
+    mail = EmailMessage(
+        to         = (instance.email,),
+        subject    = 'Registration Online Contest NWERC 2012',
+        body       = body,
+        from_email = 'NWERC 2012 <orga@nwerc.eu>',
+    )
+        
+    try:
+        mail.send()
+    except Exception, e:
+        raise e
+    
+post_save.connect(livecontest_created, sender=LiveContestRegistration)

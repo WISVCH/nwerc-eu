@@ -1,5 +1,7 @@
 from django.conf.urls.defaults import *
-from views import ImportView, TeamView, SendMailsView, SubscribeView, EventView, EventSubscriptionView, SendRemindersView
+from views import ImportView, TeamView, SendMailsView, SubscribeView, EventView, EventSubscriptionView, SendRemindersView, \
+    LiveContestRegistrationView
+from django.views.generic import TemplateView
 
 
 urlpatterns = patterns('',
@@ -9,5 +11,10 @@ urlpatterns = patterns('',
     url(r'^import/$', ImportView.as_view(), name='import'),
     url(r'^teams/$', TeamView.as_view(), name='teams'),
     url(r'^send_mails/$', SendMailsView.as_view(), name='send_mails'),
-    url(r'^send_reminders/$', SendRemindersView.as_view(), name='send_reminders')
+    url(r'^send_reminders/$', SendRemindersView.as_view(), name='send_reminders'),
+    url(r'^online-contest/register/$', LiveContestRegistrationView.as_view(), name='livecontest_registration'),
+    url(r'^online-contest/registration-succes/$', \
+        TemplateView.as_view(template_name='contest/livecontestregistration_success.html'), \
+        name='livecontest_succes'\
+    )
 )

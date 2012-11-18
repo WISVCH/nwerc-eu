@@ -1,4 +1,4 @@
-from models import Person, Team, TeamPerson, Institution, Country, Event, Subscription, Computer, TeamPlacement
+from models import Person, Team, TeamPerson, Institution, Country, Event, Subscription, Computer, TeamPlacement, LiveContestRegistration
 from django.contrib import admin
 from cms.admin.placeholderadmin import PlaceholderAdmin
 
@@ -35,3 +35,4 @@ admin.site.register(Country, CountryAdmin)
 admin.site.register(Event, PlaceholderAdmin)
 admin.site.register(Computer)
 admin.site.register(TeamPlacement)
+admin.site.register(LiveContestRegistration)

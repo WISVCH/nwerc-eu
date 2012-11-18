@@ -1,9 +1,11 @@
 from django.http import HttpResponseRedirect
 from django.views.generic import FormView, ListView, TemplateView, UpdateView
+from django.views.generic.edit import CreateView
+from django.core.urlresolvers import reverse
 from cStringIO import StringIO
 
-from forms import ImportForm, SubscriptionForm
-from models import Person, Team, Institution, Country, TeamPerson, Event, Subscription
+from forms import ImportForm, SubscriptionForm, LiveContestRegistrationForm
+from models import Person, Team, Institution, Country, TeamPerson, Event, Subscription, LiveContestRegistration
 import zipfile
 from datetime import datetime
 
@@ -152,3 +154,12 @@ class SendRemindersView(TemplateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(SendRemindersView, self).dispatch(*args, **kwargs)
+
+
+class LiveContestRegistrationView(CreateView):
+    model = LiveContestRegistration
+    form_class = LiveContestRegistrationForm
+
+    def get_success_url(self):
+        return reverse('contest:livecontest_succes')
+    
