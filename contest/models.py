@@ -219,6 +219,7 @@ class Computer(models.Model):
         ('jury', 'Jury'),
         ('free', 'Free / scoreboard'),
         ('aj', 'Autojudge'),
+        ('ajlc', 'Autojudge Live Contest'),
         ('broken', 'Broken')
     )
     
@@ -261,6 +262,11 @@ class LiveContestRegistration(models.Model):
     name = models.CharField(_('team name'), max_length=255, unique=True)
     members = models.TextField(_('members'), blank=True)
     country = models.ForeignKey(CountriesAlpha3)
+
+    @property
+    def authtoken(self):
+        import md5
+        return md5.new('%s#%s' % (self.login, self.password)).hexdigest()
 
     def clean(self):
         if not self.password:

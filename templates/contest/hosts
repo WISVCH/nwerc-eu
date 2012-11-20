@@ -1,0 +1,2 @@
+{% for object in object_list %}{{object.ip}}   comp{{object.nwerc_number}}
+{% endfor %}

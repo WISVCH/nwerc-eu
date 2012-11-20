@@ -1,11 +1,11 @@
-from django.http import HttpResponseRedirect
-from django.views.generic import FormView, ListView, TemplateView, UpdateView
+from django.http import HttpResponseRedirect, HttpResponse
+from django.views.generic import FormView, ListView, TemplateView, UpdateView, View
 from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse
 from cStringIO import StringIO
 
 from forms import ImportForm, SubscriptionForm, LiveContestRegistrationForm
-from models import Person, Team, Institution, Country, TeamPerson, Event, Subscription, LiveContestRegistration
+from models import Person, Team, Institution, Country, TeamPerson, Event, Subscription, LiveContestRegistration, TeamPlacement, Computer, CountriesAlpha3
 import zipfile
 from datetime import datetime
 
@@ -162,4 +162,149 @@ class LiveContestRegistrationView(CreateView):
 
     def get_success_url(self):
         return reverse('contest:livecontest_succes')
+      
+class Export(object):
+    @staticmethod
+    def get_teams_sql():
+        from django.template import loader, Context
+        
+        t = loader.get_template('contest/teams.sql')
+        c = Context({'object_list':TeamPlacement.objects.all()})
+        
+        return t.render(c)
+
+    @staticmethod   
+    def get_affiliations_sql():
+        from django.template import loader, Context
+        
+        c = Context({'object_list':Institution.objects.all()})
+        t = loader.get_template('contest/affiliations.sql')
+        
+        return t.render(c)
     
+    @staticmethod
+    def get_hosts():
+        from django.template import loader, Context
+        
+        c = Context({'object_list':Computer.objects.all()})
+        t = loader.get_template('contest/hosts')
+        
+        return t.render(c)
+        
+    @staticmethod
+    def get_live_contest_teams():
+        from django.template import loader, Context
+        
+        c = Context({'object_list':LiveContestRegistration.objects.all()})
+        t = loader.get_template('contest/livecontest_teams.sql')
+        
+        return t.render(c)
+    
+    @staticmethod
+    def get_live_contest_affiliations():
+        from django.template import loader, Context
+        
+        c = Context({'object_list':CountriesAlpha3.objects.all()})
+        t = loader.get_template('contest/livecontest_affiliations.sql')
+        
+        return t.render(c)
+
+
+class ExportTeamsView(View):
+    def get(self, request, **kwargs):
+        response = HttpResponse(mimetype='text/sql')
+        response['Content-Disposition'] = 'attachment; filename="teams.sql"'
+        response.write(Export.get_teams_sql().encode('utf-8'))
+        return response
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(SendRemindersView, self).dispatch(*args, **kwargs)
+        
+
+class ExportAffiliationsView(View):    
+    def get(self, request, **kwargs):
+        response = HttpResponse(mimetype='text/sql')
+        response['Content-Disposition'] = 'attachment; filename="affiliations.sql"'
+        response.write(Export.get_affiliations_sql().encode('utf-8'))
+        return response
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(SendRemindersView, self).dispatch(*args, **kwargs)
+
+
+class ExportLiveContestTeamsView(View):
+    def get(self, request, **kwargs):
+        response = HttpResponse(mimetype='text/sql')
+        response['Content-Disposition'] = 'attachment; filename="livecontest_teams.sql"'
+        response.write(Export.get_live_contest_teams().encode('utf-8'))
+        return response
+
+        @method_decorator(login_required)
+        def dispatch(self, *args, **kwargs):
+            return super(SendRemindersView, self).dispatch(*args, **kwargs)
+
+
+class ExportLiveContestAffiliationsView(View):    
+    def get(self, request, **kwargs):
+        response = HttpResponse(mimetype='text/sql')
+        response['Content-Disposition'] = 'attachment; filename="livecontest_affiliations.sql"'
+        response.write(Export.get_live_contest_affiliations().encode('utf-8'))
+        return response
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(SendRemindersView, self).dispatch(*args, **kwargs)
+
+
+class ExportAffiliationImagesView(ListView):
+    model = Institution
+    
+    def get(self,request, **kwargs):
+        self.object_list = self.get_queryset()
+        
+        response = HttpResponse(mimetype='application/zip')
+        response['Content-Disposition'] = 'attachment; filename=affiliations.zip'
+        
+        zipdata = StringIO()
+        zipf = zipfile.ZipFile(zipdata, mode="w")
+        for object in self.object_list:
+            zipf.writestr('affiliations/%s.jpg' % object.institution_id, object.logo.read())
+        zipf.close()
+        
+        response.write(zipdata.getvalue())
+        
+        return response
+
+        @method_decorator(login_required)
+        def dispatch(self, *args, **kwargs):
+            return super(SendRemindersView, self).dispatch(*args, **kwargs)
+
+
+class ExportZip(View):
+    def get(self, request):
+        from django.template import loader, Context
+
+        response = HttpResponse(mimetype='application/zip')
+        response['Content-Disposition'] = 'attachment; filename=export.zip'
+        
+        zipdata = StringIO()
+        zipf = zipfile.ZipFile(zipdata, mode="w")
+        
+        zipf.writestr('hosts', Export.get_hosts())
+        zipf.writestr('affiliations.sql', Export.get_affiliations_sql().encode('utf-8'))
+        zipf.writestr('teams.sql', Export.get_teams_sql().encode('utf-8'))
+        zipf.writestr('livecontest/teams.sql', Export.get_live_contest_teams().encode('utf-8'))
+        zipf.writestr('livecontest/affiliations.sql', Export.get_live_contest_affiliations().encode('utf-8'))
+        
+        for object in Institution.objects.all():
+            zipf.writestr('affiliations/%s.jpg' % object.institution_id, object.logo.read())
+        
+        zipf.close()
+        response.write(zipdata.getvalue())
+        return response
+
+        @method_decorator(login_required)
+        def dispatch(self, *args, **kwargs):
+            return super(SendRemindersView, self).dispatch(*args, **kwargs)

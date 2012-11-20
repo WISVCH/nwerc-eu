@@ -1,0 +1,3 @@
+login;name;members;institution_id;room;ip
+{% for object in object_list %}{{object.username}};{{object.team.name|addslashes}};{% for member in object.team.teamperson_set.all %}{{member.person|addslashes}} ({{member.get_role_display|addslashes}})\n{%endfor%};{{object.team.institution.institution_id}};{{object.computer.nwerc_number}};{{object.computer.ip}}
+{% endfor %}
