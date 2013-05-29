@@ -1,0 +1,2 @@
+{% for object in object_list %}{% if object.computer_type == "broken" %}# {% endif %}comp{{object.nwerc_number}}	{{object.computer_type}}
+{% endfor %}
