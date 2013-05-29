@@ -140,6 +140,7 @@ INSTALLED_APPS = (
     'sekizai',
 #    'reversion',
     # Uncomment the next line to enable the admin:
+    'suit',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',

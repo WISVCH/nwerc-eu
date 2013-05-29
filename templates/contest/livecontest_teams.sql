@@ -3,7 +3,7 @@
         '{{object.name|addslashes}}',
         1,
         '{{object.country.code}}',
-        '{{object.affilid}}',
+        '{{object.authtoken}}',
         '{{object.members|addslashes}}',
         ''
     ) ON DUPLICATE KEY UPDATE 

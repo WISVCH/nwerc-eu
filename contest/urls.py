@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from views import ImportView, TeamView, SendMailsView, SubscribeView, EventView, EventSubscriptionView, SendRemindersView, \
     LiveContestRegistrationView, ExportTeamsView, ExportAffiliationsView, ExportAffiliationImagesView, ExportZip, \
-    ExportLiveContestTeamsView, ExportLiveContestAffiliationsView
+    ExportLiveContestTeamsView, ExportLiveContestAffiliationsView, ExportZipKey
 from django.views.generic import TemplateView
 
 
@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^export/affiliations/$', ExportAffiliationsView.as_view(), name='export_affiliations'),
     url(r'^export/affiliations/images/$', ExportAffiliationImagesView.as_view(), name='export_affiliation_images'),
     url(r'^export/zip/$', ExportZip.as_view(), name='export_zip'),
+    url(r'^export/zip/(?P<key>\w+)/$', ExportZipKey.as_view(), name='export_zip_key'),
     url(r'^export/livecontest/teams/$', ExportLiveContestTeamsView.as_view(), name='export_livecontest_teams'),
     url(r'^export/livecontest/affiliations/$', ExportLiveContestAffiliationsView.as_view(), name='export_livecontest_affiliations')
 )

@@ -48,6 +48,11 @@ class SubscribeView(UpdateView):
     
 class TeamView(ListView):
     model = Team
+    
+    def get_queryset(self, *args, **kwargs):
+        qs = super(TeamView, self).get_queryset(*args, **kwargs)
+        qs = qs.exclude(status='B')
+        return qs
 
 
 class ImportView(FormView):
@@ -186,7 +191,7 @@ class Export(object):
     def get_hosts():
         from django.template import loader, Context
         
-        c = Context({'object_list':Computer.objects.all()})
+        c = Context({'object_list':Computer.objects.all().order_by('nwerc_number')})
         t = loader.get_template('contest/hosts')
         
         return t.render(c)
@@ -206,6 +211,15 @@ class Export(object):
         
         c = Context({'object_list':CountriesAlpha3.objects.all()})
         t = loader.get_template('contest/livecontest_affiliations.sql')
+        
+        return t.render(c)
+        
+    @staticmethod
+    def get_genders():
+        from django.template import loader, Context
+        
+        c = Context({'object_list':Computer.objects.all().order_by('nwerc_number')})
+        t = loader.get_template('contest/genders')
         
         return t.render(c)
 
@@ -259,7 +273,6 @@ class ExportLiveContestAffiliationsView(View):
 
 
 class ExportAffiliationImagesView(ListView):
-    model = Institution
     
     def get(self,request, **kwargs):
         self.object_list = self.get_queryset()
@@ -270,7 +283,8 @@ class ExportAffiliationImagesView(ListView):
         zipdata = StringIO()
         zipf = zipfile.ZipFile(zipdata, mode="w")
         for object in self.object_list:
-            zipf.writestr('affiliations/%s.jpg' % object.institution_id, object.logo.read())
+            if object.logo:
+                zipf.writestr('affiliations/%s.jpg' % object.institution_id, object.logo_thumb.read())
         zipf.close()
         
         response.write(zipdata.getvalue())
@@ -297,9 +311,11 @@ class ExportZip(View):
         zipf.writestr('teams.sql', Export.get_teams_sql().encode('utf-8'))
         zipf.writestr('livecontest/teams.sql', Export.get_live_contest_teams().encode('utf-8'))
         zipf.writestr('livecontest/affiliations.sql', Export.get_live_contest_affiliations().encode('utf-8'))
+        zipf.writestr('genders', Export.get_genders().encode('utf-8'))
         
         for object in Institution.objects.all():
-            zipf.writestr('affiliations/%s.jpg' % object.institution_id, object.logo.read())
+            if object.logo:
+                zipf.writestr('affiliations/%s.jpg' % object.institution_id, object.logo_thumb.read())
         
         zipf.close()
         response.write(zipdata.getvalue())
@@ -308,3 +324,32 @@ class ExportZip(View):
         @method_decorator(login_required)
         def dispatch(self, *args, **kwargs):
             return super(SendRemindersView, self).dispatch(*args, **kwargs)
+
+class ExportZipKey(View):
+    def get(self, request, **kwargs):
+        key = kwargs.pop('key')
+        if not key or key != settings.EXPORT_DOWNLOAD_KEY:
+            return HttpResponseRedirect('/admin/')
+            
+        from django.template import loader, Context
+
+        response = HttpResponse(mimetype='application/zip')
+        response['Content-Disposition'] = 'attachment; filename=export.zip'
+        
+        zipdata = StringIO()
+        zipf = zipfile.ZipFile(zipdata, mode="w")
+        
+        zipf.writestr('hosts', Export.get_hosts())
+        zipf.writestr('genders', Export.get_genders().encode('utf-8'))
+        zipf.writestr('affiliations.sql', Export.get_affiliations_sql().encode('utf-8'))
+        zipf.writestr('teams.sql', Export.get_teams_sql().encode('utf-8'))
+        zipf.writestr('livecontest/teams.sql', Export.get_live_contest_teams().encode('utf-8'))
+        zipf.writestr('livecontest/affiliations.sql', Export.get_live_contest_affiliations().encode('utf-8'))
+        
+        for object in Institution.objects.all():
+            if object.logo:
+                zipf.writestr('affiliations/%s.png' % object.institution_id, object.logo_png_thumb.read())
+        
+        zipf.close()
+        response.write(zipdata.getvalue())
+        return response

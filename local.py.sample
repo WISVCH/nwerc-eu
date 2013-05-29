@@ -4,6 +4,7 @@ gettext = lambda s: s
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+SESSION_COOKIE_SECURE = False
 
 DATABASES = {
     'default': {
@@ -15,6 +16,8 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+EXPORT_DOWNLOAD_KEY = 'v3rys3cr3t'
 
 import logging
 

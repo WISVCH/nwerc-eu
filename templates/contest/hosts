@@ -1,2 +1,9 @@
-{% for object in object_list %}{{object.ip}}   comp{{object.nwerc_number}}
+127.0.0.1	localhost
+127.0.0.1	chipcieserver
+
+# Add server ip's here!
+
+{% cycle '' 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 as aj%}{% cycle '' 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 as ajlc%}
+
+{% for object in object_list %}{% if object.computer_type == "broken" %}# {% endif %}{{object.ip}}	comp{{object.nwerc_number}}{% if object.computer_type == "aj" %}	aj{% cycle aj %}{% endif %}{% if object.computer_type == "ajlc" %}	ajlc{% cycle ajlc %}{% endif %}{% for tp in object.teamplacement_set.all %}	{{tp.username}}{%endfor%}
 {% endfor %}

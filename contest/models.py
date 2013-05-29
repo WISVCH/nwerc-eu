@@ -36,6 +36,7 @@ class Institution(models.Model):
     logo           = models.ImageField(_('logo'), upload_to='institutions', blank=True, null=True)
 
     logo_thumb = ImageSpecField([ResizeToFit(width=24,height=24),], image_field='logo')
+    logo_png_thumb = ImageSpecField([ResizeToFit(width=24,height=24),], image_field='logo', format='png')
 
     def __unicode__(self):
         return self.name
