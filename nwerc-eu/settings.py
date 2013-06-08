@@ -150,6 +150,12 @@ INSTALLED_APPS = (
     'south',
     'sekizai',
 
+    'easy_thumbnails',
+    'filer',
+    'cmsplugin_filer_file',
+    'cmsplugin_filer_folder',
+    'cmsplugin_filer_image',
+
     'cms.plugins.googlemap',
     'cms.plugins.link',
     'cms.plugins.text',

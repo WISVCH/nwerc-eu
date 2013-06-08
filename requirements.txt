@@ -1,15 +1,19 @@
 Django==1.5.1
 PIL==1.1.7
 South==0.8.1
+cmsplugin-filer==0.9.5
 django-appconf==0.5
 django-auth-ldap==1.1.2
 django-classy-tags==0.4
 django-cms==2.4.2
+django-filer==0.9.4
 django-imagekit==2.0.2
 django-mptt==0.5.2
+django-polymorphic==0.5
 django-reversion==1.7
 django-sekizai==0.7
 -e git+https://github.com/darklow/django-suit@d99a7684bd6bf8d4da26fed7f0389ae67da86a71#egg=django_suit-dev
+easy-thumbnails==1.2
 html5lib==1.0b1
 psycopg2==2.2.1
 python-ldap==2.4.10
