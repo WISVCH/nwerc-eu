@@ -9,7 +9,7 @@
  */
 html,body,div,span,object,iframe,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,var,fieldset,form,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,dialog,figure,footer,header,hgroup,menu,nav,section,time,mark,audio,video{vertical-align:baseline;margin:0;padding:0}
 article,aside,dialog,figure,footer,header,hgroup,menu,nav,section,time,mark,audio,video {display:block}
-body{background:#fff;color:#0c3d6e;font:75%/1.5em Arial, Helvetica, "DejaVu Sans", "Liberation sans", "Bitstream Vera Sans", sans-serif;position:relative}
+body{background:#fff;color:#b0271c;font:75%/1.5em Arial, Helvetica, "DejaVu Sans", "Liberation sans", "Bitstream Vera Sans", sans-serif;position:relative}
 textarea{font:101%/1.5em Arial, Helvetica, "DejaVu Sans", "Liberation sans", "Bitstream Vera Sans", sans-serif;border:1px solid #ccc;border-bottom-color:#eee;border-right-color:#eee;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-ms-box-sizing:border-box;width:100%;margin:0;padding:.29em 0}
 blockquote,q{quotes:none}
 blockquote:before,blockquote:after,q:before,q:after{content:none}
@@ -84,7 +84,7 @@ dt,strong,b{font-weight:700}
 #wrap {
 	width:960px;
 	margin:0 auto;
-	border:1px #0c3d6e solid;
+	border:1px #b0271c solid;
 	border-top: 0;
 }
 
@@ -114,7 +114,7 @@ dt,strong,b{font-weight:700}
 	line-height: 25px;
 	padding:0 20px;
 	text-decoration: none;
-	color:#0c3d6e;
+	color:#b0271c;
 }
 
 #menu ul{
@@ -123,17 +123,17 @@ dt,strong,b{font-weight:700}
 	position: absolute;
 	left:0;
 	height:25px;
-	background:#0c3d6e;
+	background:#b0271c;
 	width:100%;
 	list-style: none;
 }
 #menu li:hover a, #menu li.selected a, #menu li.ancestor a{
-	background:#0c3d6e;
+	background:#b0271c;
 	color:#fff;
 }
 
 #menu li < ul:hover {
-	background:#0c3d6e;
+	background:#b0271c;
 }
 #menu ul a{
 	color:#fff;
@@ -154,7 +154,7 @@ dt,strong,b{font-weight:700}
 #sponsors{
 	width:960px;
 	margin:20px auto 10px;
-	border:1px #0c3d6e solid;
+	border:1px #b0271c solid;
 	border-top: 0;
 	text-align:center;
 }
@@ -162,7 +162,7 @@ dt,strong,b{font-weight:700}
 	display:block;
 	line-height: 30px;
 	padding:0 10px;
-	background:#0c3d6e;
+	background:#b0271c;
 	color:#fff;
 	height:30px;
 }
