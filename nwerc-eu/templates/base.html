@@ -4,7 +4,7 @@
   <head>
       {% render_block "css" %}
       <link rel="stylesheet" href="{{STATIC_URL}}css/style.css">
-      <title>{% block page-title %}{% endblock %}NWERC 2012</title>
+      <title>{% block page-title %}{% endblock %}NWERC 2013</title>
   </head>
   <body>
       {% cms_toolbar %}
@@ -13,12 +13,12 @@
         <div id="head">
           <img src="{{STATIC_URL}}img/icpc.png" style="float:right" />
           <h1>Northwestern European Regional Contest</h1>
-          <h2>November 23-25 2012</h2>
+          <h2>November ??-?? 2013</h2>
           
         </div>
 
         <ul id="menu">
-          {% show_menu 0 1 1 1%}
+          {% show_menu 0 1 1 1 %}
         </ul>
         
         <div id="content">
@@ -36,7 +36,8 @@
       <div id="sponsors">
         <h2>Event sponsors</h2>
         <p>
-			<a href="http://www.ibm.com"><img src="{{STATIC_URL}}img/IBM.png" /></a><a href="https://www.fox-it.com/"><img src="{{STATIC_URL}}img/FOX-IT.png" alt="FOX-IT"/></a><a href="http://imc.nl"><img src="{{STATIC_URL}}img/IMC.gif" alt="IMC"/></a><a href="http://www.quintiq.com/"><img src="{{STATIC_URL}}img/quintic.png" alt="QuintiQ"/></a></p>
+
+        </p>
       </div>
       {% render_block "js" %}
   </body>
