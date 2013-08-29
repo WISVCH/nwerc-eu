@@ -172,7 +172,7 @@ INSTALLED_APPS = (
 
     'reversion',
 
-    'contest',
+    # 'contest',
 )
 
 SESSION_COOKIE_SECURE = True
