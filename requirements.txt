@@ -12,7 +12,7 @@ django-mptt==0.5.2
 django-polymorphic==0.5
 django-reversion==1.7
 django-sekizai==0.7
--e git+https://github.com/darklow/django-suit@d99a7684bd6bf8d4da26fed7f0389ae67da86a71#egg=django_suit-dev
+django-suit==0.2.4
 easy-thumbnails==1.2
 html5lib==1.0b1
 psycopg2==2.2.1

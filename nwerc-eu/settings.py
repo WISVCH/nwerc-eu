@@ -174,6 +174,7 @@ INSTALLED_APPS = (
 
     # 'contest',
     'activities',
+    'contestants',
 )
 
 SESSION_COOKIE_SECURE = True
