@@ -3,6 +3,7 @@
 import os
 import ldap
 from django_auth_ldap.config import LDAPSearch, PosixGroupType
+
 gettext = lambda s: s
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 
@@ -81,7 +82,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -91,7 +92,7 @@ SECRET_KEY = 'l^13dlawi#m4j-qs(gw0)gohltwg5*4nfgzd-r6jyq9ub3$ji2'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #     'django.template.loaders.eggs.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -186,7 +187,7 @@ AUTH_LDAP_BIND_PASSWORD = ""
 AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=ank,dc=chnet", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
 
 AUTH_LDAP_GROUP_SEARCH = LDAPSearch("ou=Group,dc=ank,dc=chnet",
-    ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)"
+                                    ldap.SCOPE_SUBTREE, "(objectClass=posixGroup)"
 )
 AUTH_LDAP_GROUP_TYPE = PosixGroupType()
 

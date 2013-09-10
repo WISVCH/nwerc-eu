@@ -4,5 +4,5 @@ from views import ActivityListView
 
 
 urlpatterns = patterns('',
-    url(r'^$', ActivityListView.as_view(), name='list'),
+                       url(r'^$', ActivityListView.as_view(), name='list'),
 )

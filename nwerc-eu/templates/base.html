@@ -1,42 +1,45 @@
 {% load cms_tags sekizai_tags menu_tags %}
 <!DOCTYPE html>
 <html>
-  <head>
-      {% render_block "css" %}
-      <link rel="stylesheet" href="{{STATIC_URL}}css/style.css">
-      <title>{% block page-title %}{% endblock %}NWERC 2013</title>
-  </head>
-  <body>
-      <div id="wrap">
-        <div id="head">
-          <img src="{{STATIC_URL}}img/icpc.png" style="float:right" />
-          <h1>Northwestern European Regional Contest</h1>
-          <h2>November 22-24 2013</h2>
-          
-        </div>
+<head>
+    {% render_block "css" %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+    <title>{% block page-title %}{% endblock %}NWERC 2013</title>
+</head>
+<body>
+<div id="wrap">
+    <div id="head">
+        <img src="{{ STATIC_URL }}img/icpc.png" style="float:right"/>
 
-        <ul id="menu">
-          {% show_menu 0 1 1 1 %}
-        </ul>
-        
-        <div id="content">
-		  {% if messages %}
-			<div class="messages">
-			    {% for message in messages %}
-			    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-			    {% endfor %}
-			</div>
-		  {% endif %}
-          {% block content%}{% endblock %}
-        </div>
-      </div>
+        <h1>Northwestern European Regional Contest</h1>
 
-      <div id="sponsors">
-        <h2>Event sponsors</h2>
-        <p>
-          <a href="http://www.ibm.com"><img src="{{STATIC_URL}}img/IBM.png" /></a>
-        </p>
-      </div>
-      {% render_block "js" %}
-  </body>
+        <h2>November 22-24 2013</h2>
+
+    </div>
+
+    <ul id="menu">
+        {% show_menu 0 1 1 1 %}
+    </ul>
+
+    <div id="content">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+<div id="sponsors">
+    <h2>Event sponsors</h2>
+
+    <p>
+        <a href="http://www.ibm.com"><img src="{{ STATIC_URL }}img/IBM.png"/></a>
+    </p>
+</div>
+{% render_block "js" %}
+</body>
 </html>
