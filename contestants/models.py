@@ -71,6 +71,21 @@ class Team(models.Model):
     def __unicode__(self):
         return self.name
 
+    def move(self, computer):
+        from system.models import TeamPlacement
+        if computer.computer_type == 'team':
+            try:
+                teamPlacement = self.teamplacement_set.get()
+            except TeamPlacement.DoesNotExist:
+                teamPlacement = TeamPlacement()
+                teamPlacement.team = self
+                teamPlacement.username = self.generate_username()
+
+            teamPlacement.computer = computer
+            teamPlacement.save()
+
+    def generate_username(self):
+        return self.team_id
 
 class TeamPerson(models.Model):
     ROLE_CHOICES = (
