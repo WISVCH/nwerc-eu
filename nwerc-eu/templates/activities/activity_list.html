@@ -15,7 +15,7 @@
 
     {% for object in object_list %}
         <h2><a id="event-{{ object.pk }}"></a>{{ object.title }}</h2>
-        <h3>{{ object.subscriptions.count }}/{{ object.max_participants }} subscriptions.</h3>
+        {# <h3>{{ object.subscriptions.count }}/{{ object.max_participants }} subscriptions.</h3> #}
         {{ object.description }}
     {% endfor %}
 {% endblock %}
