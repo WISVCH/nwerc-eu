@@ -1,12 +1,7 @@
+from django.conf.urls import patterns, url
 from django.contrib import admin
-from cms.admin.placeholderadmin import PlaceholderAdmin
-
-from models import Person, Team, TeamPerson, Institution, Country, Event, Subscription, Computer, TeamPlacement, LiveContestRegistration
-
-
-class SubscriptionInline(admin.TabularInline):
-    model = Subscription
-    extra = 0
+from contestants.models import Person, Team, Country, Institution, TeamPerson
+from contestants.views import ImportView
 
 
 class TeamPersonInline(admin.TabularInline):
@@ -18,7 +13,15 @@ class PersonAdmin(admin.ModelAdmin):
     search_fields = ('first_name', 'last_name', 'email')
     list_display = ('first_name', 'last_name', 'email', 'date_of_birth', 'gender', 'shirt_size')
     list_filter = ('gender', 'shirt_size')
-    inlines = (TeamPersonInline, SubscriptionInline)
+    inlines = (TeamPersonInline,)
+
+    def get_urls(self):
+        urls = super(PersonAdmin, self).get_urls()
+        my_urls = patterns('',
+                           url(r'^import/$', self.admin_site.admin_view(ImportView.as_view()),
+                               name='contestants-admin-import'),
+        )
+        return my_urls + urls
 
 
 class TeamAdmin(admin.ModelAdmin):
@@ -37,10 +40,5 @@ class InstitutionAdmin(admin.ModelAdmin):
 
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Team, TeamAdmin)
-# admin.site.register(TeamPerson)
-admin.site.register(Institution, InstitutionAdmin)
 admin.site.register(Country, CountryAdmin)
-admin.site.register(Event, PlaceholderAdmin)
-admin.site.register(Computer)
-admin.site.register(TeamPlacement)
-admin.site.register(LiveContestRegistration)
+admin.site.register(Institution, InstitutionAdmin)

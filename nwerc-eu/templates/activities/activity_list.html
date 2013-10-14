@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
-{% load placeholder_tags %}
+{% load cms_tags %}
 {% block page-title %}Activities &mdash; {% endblock %}
 
 {% block content %}
     <h1>Activities</h1>
+    {% placeholder content %}
     <p>On this years NWERC we will have {{ object_list|length }} activities which are described below.
     <ul>
         {% for object in object_list %}
@@ -15,10 +16,6 @@
     {% for object in object_list %}
         <h2><a id="event-{{ object.pk }}"></a>{{ object.title }}</h2>
         <h3>{{ object.subscriptions.count }}/{{ object.max_participants }} subscriptions.</h3>
-        <ul>
-            {% for subscription in object.subscriptions.all %}
-                <li>{{ subscription.person }}</li>
-            {% endfor %}
-        </ul>
+        {{ object.description }}
     {% endfor %}
 {% endblock %}

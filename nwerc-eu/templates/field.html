@@ -1,12 +1,12 @@
-<label for="id_{{field.name}}">
-  {{ field.label }}
-  {% if field.errors %}
-    <em>{{ field.errors }}</em>
-  {% else %}
-    {% if field.field.required %}
-      <em>*</em>
+<label for="id_{{ field.name }}">
+    {{ field.label }}
+    {% if field.errors %}
+        <em>{{ field.errors }}</em>
+    {% else %}
+        {% if field.field.required %}
+            <em>*</em>
+        {% endif %}
     {% endif %}
-  {% endif %}
 </label>
 
 {{ field }}
