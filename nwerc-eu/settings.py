@@ -181,7 +181,7 @@ INSTALLED_APPS = (
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_AGE = 1209600
 
-AUTH_LDAP_SERVER_URI = "ldaps://frans.chnet"
+AUTH_LDAP_SERVER_URI = "ldaps://joost.chnet"
 AUTH_LDAP_BIND_DN = ""
 AUTH_LDAP_BIND_PASSWORD = ""
 AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=ank,dc=chnet", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")

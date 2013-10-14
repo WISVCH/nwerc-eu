@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block page-title %}Teams &mdash; {% endblock %}
+
+{% block content %}
+    <table>
+        <tr>
+            <th colspan="2">Institution</th>
+            <th>Teamname</th>
+            <th>Status</th>
+        </tr>
+        {% for object in object_list %}
+            <tr>
+                <td><img src="{{ STATIC_URL }}{{ object.institution.country.get_flag_url }}"
+                         alt="{{ object.institution.country.name }}"/></td>
+                <td>{% if object.institution.logo %}
+                    <img src="{{ object.institution.logo_thumb.url }}"/>{% endif %} {{ object.institution.name }}</td>
+                <td>{{ object.name }}</td>
+                <td style="text-align:center;">{% spaceless %}
+                    {% if object.status == 'A' %}
+                        <img src="{{ STATIC_URL }}img/icons/accept.png" alt="accepted" title="Accepted">
+                        {% else %}{% if object.status == 'P' %}
+                            <img src="{{ STATIC_URL }}img/icons/hourglass.png" alt="Pending" title="Pending">
+                            {% else %}<img src="{{ STATIC_URL }}img/icons/cancel.png" alt="Canceled" title="Canceled">
+                        {% endif %}{% endif %}
+                {% endspaceless %}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
