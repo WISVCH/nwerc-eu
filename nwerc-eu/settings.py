@@ -172,6 +172,7 @@ INSTALLED_APPS = (
     'cms.plugins.text',
 
     'reversion',
+    'imagekit',
 
     # 'contest',
     'activities',
