@@ -3,7 +3,7 @@ from datetime import datetime
 import zipfile
 from django.contrib import messages
 from django.views.generic import ListView, FormView
-from contest.forms import ImportForm
+from contestants.forms import ImportForm
 from contestants.models import Team, Person, Institution, Country, TeamPerson
 
 
