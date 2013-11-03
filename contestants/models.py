@@ -47,7 +47,7 @@ class Person(models.Model):
     @property
     def is_coach(self):
         try:
-            TeamPerson.objects.get(person=self, role='COACH')
+            TeamPerson.objects.filter(person=self, role='COACH')[:1].get()
             return True
         except TeamPerson.DoesNotExist:
             return False

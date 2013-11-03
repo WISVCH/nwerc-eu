@@ -20,7 +20,6 @@ class SubscribeView(UpdateView):
         from django.http import Http404
 
         try:
-            print self.kwargs.get('person_id'), self.kwargs.get('key')
             return Subscription.objects.filter(person__person_id=self.kwargs.get('person_id'), key=self.kwargs.get('key')).get()
         except:
             raise Http404
