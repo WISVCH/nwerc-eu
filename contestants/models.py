@@ -52,6 +52,20 @@ class Person(models.Model):
         except TeamPerson.DoesNotExist:
             return False
 
+    def get_or_create_subscription(self):
+        from activities.models import Subscription
+        if self.teams.filter(status='A').count() < 1:
+            return None
+        try:
+            subscription = Subscription.objects.filter(person=self).get()
+        except:
+            subscription = Subscription(person=self)
+            subscription.key = Subscription.generate_hash()
+            subscription.save()
+            subscription.send_mail()
+
+        return subscription
+
     def __unicode__(self):
         return self.prefered_name
 
@@ -73,6 +87,7 @@ class Team(models.Model):
 
     def move(self, computer):
         from system.models import TeamPlacement
+
         if computer.computer_type == 'team':
             try:
                 teamPlacement = self.teamplacement_set.get()
@@ -86,6 +101,7 @@ class Team(models.Model):
 
     def generate_username(self):
         return self.team_id
+
 
 class TeamPerson(models.Model):
     ROLE_CHOICES = (
