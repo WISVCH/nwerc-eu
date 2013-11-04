@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>Subscription</h1>
-    <p>For more information on the activities to the <a href="{% url contest:events %}">activities page</a>.</p>
+    <p>For more information on the activities to the <a href="{% url 'activities:list' %}">activities page</a>.</p>
     <p>You can always change your subscription to an event by returning to this page.</p>
     <form method='post' class='horizontalForm'>
         {% for error in form.non_field_errors %}

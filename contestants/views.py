@@ -10,6 +10,10 @@ from contestants.models import Team, Person, Institution, Country, TeamPerson
 class TeamListView(ListView):
     model = Team
 
+    def get_queryset(self):
+        qs = super(TeamListView, self).get_queryset()
+        return qs.exclude(status="C")
+
 
 class ImportView(FormView):
     form_class = ImportForm
