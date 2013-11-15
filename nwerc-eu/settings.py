@@ -153,6 +153,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'suit',
+    'import_export',
     'django.contrib.admin',
 
     'cms',
