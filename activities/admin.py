@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from models import Activity, Subscription
+from import_export.admin import ImportExportModelAdmin
 
 
 class SubscriptionInline(admin.TabularInline):
@@ -13,7 +14,7 @@ class ActivityAdmin(admin.ModelAdmin):
     inlines = [SubscriptionInline, ]
 
 
-class SubscriptionAdmin(admin.ModelAdmin):
+class SubscriptionAdmin(ImportExportModelAdmin):
     list_display = ['person', 'activity', 'mail_sent']
     list_filter = ['activity', ]
 
