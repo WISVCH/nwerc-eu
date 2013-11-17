@@ -88,9 +88,9 @@ class Team(models.Model):
     def move(self, computer):
         from system.models import TeamPlacement
 
-        if computer.computer_type == 'team':
+        if computer.computer_type == 'team' or computer.computer_type == 'free':
             try:
-                teamPlacement = self.teamplacement_set.get()
+                teamPlacement = self.team_placement.get()
             except TeamPlacement.DoesNotExist:
                 teamPlacement = TeamPlacement()
                 teamPlacement.team = self
@@ -98,6 +98,8 @@ class Team(models.Model):
 
             teamPlacement.computer = computer
             teamPlacement.save()
+            computer.computer_type = "team"
+            computer.save()
 
     def generate_username(self):
         return self.team_id
