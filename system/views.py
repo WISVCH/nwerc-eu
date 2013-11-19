@@ -52,7 +52,7 @@ class ExportSystemZipView(TemplateView):
         zipdata = StringIO()
         zipf = zipfile.ZipFile(zipdata, mode="w")
 
-        c = Context({'object_list': Computer.objects.all(), 'date': datetime.now()})
+        c = Context({'object_list': Computer.objects.exclude(computer_type='broken'), 'date': datetime.now()})
 
         #t = loader.get_template('system/generation/hosts.main-server')
         #zipf.writestr('affiliations.sql', Export.get_affiliations_sql().encode('utf-8'))

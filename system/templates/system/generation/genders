@@ -1,4 +1,3 @@
 # GENDERS generated {{date}} by NWERC website (located /etc/genders on main server)
 {% for object in object_list %}
-{{object.hostname}} {{object.computer_type}}
-{% endfor %}
+{{object.hostname}} {{object.computer_type}}{% endfor %}
