@@ -1,2 +1,2 @@
 personid	team id	Universiteit	@image	Teamnaa	Role	Voornaam	Achternaam	@role{% for object in object_list %}
-{{object.person.pk}}	{{object.team.pk}}	{{object.team.institution.name}}	[PathToInstitutionLogos]{{object.team.institution.pk}}.jpg	{{object.team.name}}	{{object.role.get_role_display}}	{{object.person.first_name}}	{{object.person.last_name}}	[PathToColorImages]{{object.role}}.jpg{% endfor %}
+{{object.person.pk}}	{{object.team.pk}}	{{object.team.institution.name}}	[PathToInstitutionLogos]{{object.team.institution.pk}}.jpg	{{object.team.name}}	{{object.get_role_display}}	{{object.person.first_name}}	{{object.person.last_name}}	[PathToColorImages]{{object.role}}.jpg{% endfor %}
