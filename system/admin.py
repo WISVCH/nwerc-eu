@@ -1,17 +1,27 @@
 from django.conf.urls import patterns, url
 from django.contrib import admin
-from models import Computer, TeamPlacement
 from import_export.admin import ImportExportModelAdmin
-from views import PlaceUnplacedTeamsView
+
+from models import Computer, TeamPlacement
+from views import PlaceUnplacedTeamsView, ExportSystemZipView
 
 
 class ComputerAdmin(ImportExportModelAdmin):
     list_display = ['unique_number', 'ip', 'mac_address', 'computer_type']
     list_filter = ['computer_type', ]
 
+    def get_urls(self):
+        urls = super(ComputerAdmin, self).get_urls()
+        my_urls = patterns('',
+                           url(r'^export-zip/$', self.admin_site.admin_view(ExportSystemZipView.as_view()),
+                               name='system-admin-export-zip'),
+        )
+        return my_urls + urls
+
 
 class TeamPlacementAdmin(ImportExportModelAdmin):
     list_display = ['computer', 'team', 'username']
+
     def get_urls(self):
         urls = super(TeamPlacementAdmin, self).get_urls()
         my_urls = patterns('',
