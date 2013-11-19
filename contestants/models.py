@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from imagekit.models import ProcessedImageField
+from pilkit.processors import ResizeToFill
 
 
 class Country(models.Model):
@@ -54,6 +56,7 @@ class Person(models.Model):
 
     def get_or_create_subscription(self):
         from activities.models import Subscription
+
         if self.teams.filter(status='A').count() < 1:
             return None
         try:
