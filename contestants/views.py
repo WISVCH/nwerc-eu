@@ -2,7 +2,8 @@ from StringIO import StringIO
 from datetime import datetime
 import zipfile
 from django.contrib import messages
-from django.views.generic import ListView, FormView
+from django.http import HttpResponse
+from django.views.generic import ListView, FormView, TemplateView
 from contestants.forms import ImportForm
 from contestants.models import Team, Person, Institution, Country, TeamPerson
 
@@ -83,3 +84,37 @@ class ImportView(FormView):
 
         messages.success(self.request, 'Successfully imported data.')
         return super(ImportView, self).form_valid(form)
+
+
+class ExportImagesView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        object_list = Institution.objects.all()
+
+        response = HttpResponse(mimetype='application/zip')
+        response['Content-Disposition'] = 'attachment; filename=affiliations.zip'
+
+        zipdata = StringIO()
+        zipf = zipfile.ZipFile(zipdata, mode="w")
+        for object in object_list:
+            if object.logo:
+                zipf.writestr('affiliations/%s.jpg' % object.institution_id, object.logo.read())
+        zipf.close()
+
+        response.write(zipdata.getvalue())
+
+        return response
+
+
+class ExportBadgesView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        from django.template import loader, Context
+
+        c = Context({'object_list': TeamPerson.objects.all()})
+        t = loader.get_template('contestants/badges.txt')
+
+        response = HttpResponse(mimetype='application/txt')
+        response['Content-Disposition'] = 'attachment; filename=badges.txt'
+
+        response.write(t.render(c))
+
+        return response

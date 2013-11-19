@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 from django.contrib import admin
 from contestants.models import Person, Team, Country, Institution, TeamPerson
-from contestants.views import ImportView
+from contestants.views import ImportView, ExportImagesView, ExportBadgesView
 
 
 class TeamPersonInline(admin.TabularInline):
@@ -20,6 +20,8 @@ class PersonAdmin(admin.ModelAdmin):
         my_urls = patterns('',
                            url(r'^import/$', self.admin_site.admin_view(ImportView.as_view()),
                                name='contestants-admin-import'),
+                           url(r'^badges/$', self.admin_site.admin_view(ExportBadgesView.as_view()),
+                               name='contestants-admin-badges'),
         )
         return my_urls + urls
 
@@ -36,6 +38,14 @@ class CountryAdmin(admin.ModelAdmin):
 class InstitutionAdmin(admin.ModelAdmin):
     list_display = ('name', 'short_name', 'logo')
     list_editable = ('short_name', 'logo',)
+
+    def get_urls(self):
+        urls = super(InstitutionAdmin, self).get_urls()
+        my_urls = patterns('',
+                           url(r'^export-logos/$', self.admin_site.admin_view(ExportImagesView.as_view()),
+                               name='contestants-admin-export-logos'),
+        )
+        return my_urls + urls
 
 
 admin.site.register(Person, PersonAdmin)

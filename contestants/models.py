@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from imagekit.models import ProcessedImageField
+from pilkit.processors import ResizeToFill
 
 
 class Country(models.Model):
@@ -54,6 +56,7 @@ class Person(models.Model):
 
     def get_or_create_subscription(self):
         from activities.models import Subscription
+
         if self.teams.filter(status='A').count() < 1:
             return None
         try:
@@ -88,9 +91,9 @@ class Team(models.Model):
     def move(self, computer):
         from system.models import TeamPlacement
 
-        if computer.computer_type == 'team':
+        if computer.computer_type == 'team' or computer.computer_type == 'free':
             try:
-                teamPlacement = self.teamplacement_set.get()
+                teamPlacement = self.team_placement.get()
             except TeamPlacement.DoesNotExist:
                 teamPlacement = TeamPlacement()
                 teamPlacement.team = self
@@ -98,6 +101,8 @@ class Team(models.Model):
 
             teamPlacement.computer = computer
             teamPlacement.save()
+            computer.computer_type = "team"
+            computer.save()
 
     def generate_username(self):
         return self.team_id
