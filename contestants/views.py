@@ -115,6 +115,6 @@ class ExportBadgesView(TemplateView):
         response = HttpResponse(mimetype='application/txt')
         response['Content-Disposition'] = 'attachment; filename=badges.txt'
 
-        response.write(t.render(c))
+        response.write(t.render(c).encode('utf-8'))
 
         return response
