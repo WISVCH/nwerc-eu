@@ -103,3 +103,18 @@ class ExportImagesView(TemplateView):
         response.write(zipdata.getvalue())
 
         return response
+
+
+class ExportBadgesView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        from django.template import loader, Context
+
+        c = Context({'object_list': TeamPerson.objects.all()})
+        t = loader.get_template('contestants/badges.txt')
+
+        response = HttpResponse(mimetype='application/txt')
+        response['Content-Disposition'] = 'attachment; filename=badges.txt'
+
+        response.write(t.render(c))
+
+        return response

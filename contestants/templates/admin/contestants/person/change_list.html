@@ -2,6 +2,10 @@
 {% load i18n admin_static admin_list admin_urls suit_list %}
 
 {% block object-tools-items %}
+    <a href="{% url 'admin:contestants-admin-badges' %}{% if is_popup %}?_popup=1{% endif %}" class="btn btn-success">
+        <i class="icon-download icon-white"></i>&nbsp;
+        {% blocktrans with cl.opts.verbose_name as name %}Badges{% endblocktrans %}
+    </a>
     <a href="{% url 'admin:contestants-admin-import' %}{% if is_popup %}?_popup=1{% endif %}" class="btn btn-success">
         <i class="icon-upload icon-white"></i>&nbsp;
         {% blocktrans with cl.opts.verbose_name as name %}Import {{ name_plural }}{% endblocktrans %}

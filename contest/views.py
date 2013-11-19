@@ -203,7 +203,7 @@ class Export(object):
         from django.template import loader, Context
 
         c = Context({'object_list': LiveContestRegistration.objects.all()})
-        t = loader.get_template('contest/livecontest_teams.sql')
+        t = loader.get_template('contestants/livecontest_teams.sql')
 
         return t.render(c)
 
