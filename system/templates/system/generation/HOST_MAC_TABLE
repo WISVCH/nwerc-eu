@@ -1,0 +1,5 @@
+# DRBL generated {{date}} by NWERC website (located /etc/drbl/HOST_MAC_TABLE), begin
+{% for object in object_list %}
+{{object.hostname}} {{object.ip}} {{object.mac_address}}
+{% endfor %}
+# end
