@@ -117,6 +117,7 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 )
 
 THUMBNAIL_PROCESSORS = (
@@ -174,10 +175,13 @@ INSTALLED_APPS = (
 
     'reversion',
     'imagekit',
+    'corsheaders',
+    'tastypie',
 
     # 'contest',
     'activities',
     'contestants',
+    'system',
 )
 
 SESSION_COOKIE_SECURE = True
@@ -243,5 +247,7 @@ LOGGING = {
         },
     }
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 from local import *

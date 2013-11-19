@@ -1,0 +1,25 @@
+{% extends 'admin/base.html' %}
+
+{% block page-title %}Place unplaced teams &mdash; {% endblock %}
+
+{% block content %}
+    <h1>Placed teams</h1>
+    <ul>
+    {% for team in teams_placed %}
+        <li>{{ team.name }}</li>
+    {% empty %}
+        <li>No teams placed</li>
+    {% endfor %}
+    </ul>
+
+    {% if teams_unplaced %}
+    <h1>Unplaced teams</h1>
+    <ul>
+    {% for team in teams_unplaced %}
+        <li>{{ team.name }}</li>
+    {% empty %}
+        <li>No teams placed</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock %}
