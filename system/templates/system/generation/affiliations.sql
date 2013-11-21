@@ -1,4 +1,4 @@
-{% autoescape off %}{% for object in object_list %}INSERT INTO `team_affiliation` (`affilid`, `name`, `country`) VALUES (
+{% autoescape off %}{% for object in team_placements %}INSERT INTO `team_affiliation` (`affilid`, `name`, `country`) VALUES (
     '{{object.institution_id}}', 
     '{{object.name|addslashes}}', 
     '{{object.country.ICPC_name}}'
