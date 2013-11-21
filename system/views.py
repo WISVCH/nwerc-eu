@@ -54,8 +54,12 @@ class ExportSystemZipView(TemplateView):
 
         c = Context({'object_list': Computer.objects.exclude(computer_type='broken'), 'date': datetime.now()})
 
-        #t = loader.get_template('system/generation/hosts.main-server')
-        #zipf.writestr('affiliations.sql', Export.get_affiliations_sql().encode('utf-8'))
+        t = loader.get_template('system/generation/affiliations.sql')
+        zipf.writestr('affiliations.sql', t.render(c).encode('utf-8'))
+        t = loader.get_template('system/generation/teams.sql')
+        zipf.writestr('teams.sql', t.render(c).encode('utf-8'))
+        t = loader.get_template('system/generation/livecontest_teams.sql')
+        zipf.writestr('livecontest/teams.sql', t.render(c).encode('utf-8'))
         #zipf.writestr('teams.sql', Export.get_teams_sql().encode('utf-8'))
         #zipf.writestr('livecontest/teams.sql', Export.get_live_contest_teams().encode('utf-8'))
         #zipf.writestr('livecontest/affiliations.sql', Export.get_live_contest_affiliations().encode('utf-8'))
