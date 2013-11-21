@@ -3,5 +3,4 @@
 127.0.0.1       chipcieserver
 
 {% for object in object_list %}
-{{object.ip}}	{{object.hostname}}
-{% endfor %}
+{{object.ip}}	{{object.hostname}}{% endfor %}

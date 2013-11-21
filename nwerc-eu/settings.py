@@ -182,6 +182,7 @@ INSTALLED_APPS = (
     'activities',
     'contestants',
     'system',
+    'livecontest',
 )
 
 SESSION_COOKIE_SECURE = True
