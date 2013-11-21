@@ -9,4 +9,4 @@ class RegistrationView(CreateView):
     form_class = RegistrationForm
 
     def get_success_url(self):
-        return '/live-contest/registration/success/'
+        return '/online-contest/registration/success/'
