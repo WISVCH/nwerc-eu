@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block page-title %}Register &mdash; {% endblock %}
+
+{% block content %}
+    <h1>Online Contest Registration</h1>
+    <p>In the form below you can register for the NWERC 2013 online contest.</p>
+    <form method='post' enctype="multipart/form-data" class="horizontalForm">
+        {% csrf_token %}
+
+        {% include "field.html" with field=form.login %}
+        {% include "field.html" with field=form.email %}
+        {% include "field.html" with field=form.name %}
+        {% include "field.html" with field=form.members %}
+        {% include "field.html" with field=form.country %}
+        <button type="submit">Register</button>
+    </form>
+{% endblock %}
