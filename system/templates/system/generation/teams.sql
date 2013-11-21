@@ -1,4 +1,4 @@
-{% autoescape off %}{% for object in object_list %}INSERT INTO `team` (`login`, `name`, `categoryid`, `affilid`, `authtoken`, `members`, `room`, `hostname`) VALUES  (
+{% autoescape off %}{% for object in team_placements %}INSERT INTO `team` (`login`, `name`, `categoryid`, `affilid`, `authtoken`, `members`, `room`, `hostname`) VALUES  (
         '{{object.username}}',
         '{{object.team.name|addslashes}}',
         {% if object.team.status == 'A' %}1{%else%}2{%endif%},
