@@ -18,7 +18,7 @@ class Registration(models.Model):
     def authtoken(self):
         import hashlib
 
-        return hashlib.new('%s#%s' % (self.login, self.password)).hexdigest()
+        return hashlib.md5('%s#%s' % (self.login, self.password)).hexdigest()
 
     def clean(self):
         if not self.password:
