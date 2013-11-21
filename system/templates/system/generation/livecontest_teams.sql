@@ -1,4 +1,4 @@
-{% autoescape off %}{% for object in object_list %}INSERT INTO `team` (`login`, `name`, `categoryid`, `authtoken`, `members`, `room`) VALUES  (
+{% autoescape off %}{% for object in livecontest %}INSERT INTO `team` (`login`, `name`, `categoryid`, `authtoken`, `members`, `room`) VALUES  (
         '{{object.login}}',
         '{{object.name|addslashes}}',
         1,
