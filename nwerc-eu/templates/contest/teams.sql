@@ -1,7 +1,7 @@
 {% autoescape off %}{% for object in object_list %}INSERT INTO `team` (`login`, `name`, `categoryid`, `affilid`, `authtoken`, `members`, `room`, `hostname`) VALUES  (
         '{{object.username}}',
         '{{object.team.name|addslashes}}',
-        {% if object.team.status == 'A' %}1{%else%}2{%endif%},
+        {% if object.team.status == 'A' %}2{%else%}1{%endif%},
         '{{object.team.institution.institution_id}}',
         '{{object.computer.ip}}',
         '{% for member in object.team.teamperson_set.all %}{{member.person|addslashes}} ({{member.get_role_display|addslashes}})\n{%endfor%}',
