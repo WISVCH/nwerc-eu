@@ -19,6 +19,7 @@ admin.autodiscover()
 urlpatterns = i18n_patterns('',
                             url(r'^admin/', include(admin.site.urls)),
                             (r'^api/', include(v1_api.urls)),
+                            url(r'^system/', include('system.urls', namespace='system')),
                             # url(r'^contest/', include('contest.urls')),
                             url(r'^', include('cms.urls')),
 )
