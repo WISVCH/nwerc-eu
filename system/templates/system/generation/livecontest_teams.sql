@@ -1,7 +1,7 @@
 {% autoescape off %}{% for object in livecontest %}INSERT INTO `team` (`login`, `name`, `categoryid`, `authtoken`, `members`, `room`) VALUES  (
         '{{object.login}}',
         '{{object.name|addslashes}}',
-        1,
+        2,
         '{{object.authtoken}}',
         '{{object.members|addslashes}}',
         ''
