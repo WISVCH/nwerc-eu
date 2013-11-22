@@ -3,6 +3,8 @@ from django.contrib import admin
 from contestants.models import Person, Team, Country, Institution, TeamPerson
 from contestants.views import ImportView, ExportImagesView, ExportBadgesView
 
+from import_export.admin import ImportExportModelAdmin
+
 
 class TeamPersonInline(admin.TabularInline):
     model = TeamPerson
@@ -26,7 +28,7 @@ class PersonAdmin(admin.ModelAdmin):
         return my_urls + urls
 
 
-class TeamAdmin(admin.ModelAdmin):
+class TeamAdmin(ImportExportModelAdmin):
     inlines = (TeamPersonInline,)
 
 

@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from imagekit.models import ProcessedImageField
-from pilkit.processors import ResizeToFill
+from imagekit.models import ImageSpecField
+from pilkit.processors import ResizeToFit
 
 
 class Country(models.Model):
@@ -28,6 +28,10 @@ class Institution(models.Model):
     short_name = models.CharField(_('short name'), max_length=55, blank=True, null=True)
     country = models.ForeignKey(Country, blank=True, null=True)
     logo = models.ImageField(_('logo'), upload_to='institutions', blank=True, null=True)
+
+    logo_thumb = ImageSpecField(source='logo',
+                                processors=[ResizeToFit(24, 24)],
+                                format='PNG', )
 
     def __unicode__(self):
         return self.name
