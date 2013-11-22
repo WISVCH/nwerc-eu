@@ -1,7 +1,7 @@
 {% autoescape off %}{% for object in object_list %}INSERT INTO `team` (`login`, `name`, `categoryid`, `affilid`, `authtoken`, `members`, `room`) VALUES  (
         '{{object.login}}',
         '{{object.name|addslashes}}',
-        1,
+        2,
         '{{object.country.code}}',
         '{{object.authtoken}}',
         '{{object.members|addslashes}}',
