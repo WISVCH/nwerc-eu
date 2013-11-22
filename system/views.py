@@ -1,10 +1,11 @@
 from cStringIO import StringIO
 import zipfile
 from datetime import datetime
+from django.conf import settings
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView
-from contestants.models import Team
+from contestants.models import Team, Institution
 from livecontest.models import Registration
 from system.models import TeamPlacement, Computer
 
@@ -56,6 +57,7 @@ class ExportSystemZipView(TemplateView):
         c = Context({'object_list': Computer.objects.exclude(computer_type='broken'),
                      'team_placements': TeamPlacement.objects.all(),
                      'livecontest': Registration.objects.all(),
+                     'institutions': Institution.objects.all(),
                      'date': datetime.now()})
 
         t = loader.get_template('system/generation/affiliations.sql')
@@ -85,3 +87,12 @@ class ExportSystemZipView(TemplateView):
         zipf.close()
         response.write(zipdata.getvalue())
         return response
+
+
+class ExportSystemZipKeyView(ExportSystemZipView):
+    def get(self, request, *args, **kwargs):
+        key = kwargs.pop('key')
+        if not key or key != settings.EXPORT_DOWNLOAD_KEY:
+            return HttpResponseRedirect('/admin/')
+
+        return super(ExportSystemZipKeyView, self).get(request)
