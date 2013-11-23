@@ -80,9 +80,9 @@ class ExportSystemZipView(TemplateView):
         t = loader.get_template('system/generation/IP_HOST_TABLE')
         zipf.writestr('IP_HOST_TABLE', t.render(c).encode('utf-8'))
 
-        #for object in Institution.objects.all():
-        #    if object.logo:
-        #        zipf.writestr('affiliations/%s.jpg' % object.institution_id, object.logo_thumb.read())
+        for object in Institution.objects.all():
+            if object.logo:
+                zipf.writestr('affiliations/%s.png' % object.institution_id, object.logo_thumb.read())
 
         zipf.close()
         response.write(zipdata.getvalue())

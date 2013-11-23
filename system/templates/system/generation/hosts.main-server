@@ -1,6 +1,8 @@
 # HOSTS generated {{date}} by NWERC website (located /etc/hosts of main server)
 127.0.0.1       localhost
 127.0.0.1       chipcieserver
+192.168.8.2     chipciebackup
+192.168.8.3     chipcieprinter
 
 {% for object in object_list %}
 {{object.ip}}	{{object.hostname}}{% endfor %}
