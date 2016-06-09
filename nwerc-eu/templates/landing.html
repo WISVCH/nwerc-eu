@@ -1,0 +1,63 @@
+{% load static %}
+
+<html>
+<head>
+	<style>
+		body, html{
+			background: white
+		}
+		#main {
+			width: 800px;
+			margin: 0 auto;
+			margin-top: 10%
+		}
+
+		p {
+			width: 50%;
+			text-align: right;
+			font-family: sans-serif;
+			float: left;
+			line-height: 1.44;
+    		font-size: 0.9em;
+		}
+
+		a {
+			color: black;
+			text-decoration: underline;
+		}
+
+		img {
+			width: 26%;
+			margin-top: 12px;
+			margin-left: 30px
+		}
+
+		#logos {
+			width: 500px;
+			height: 100px;
+			position: absolute;
+			right:10px;
+			bottom:10px;
+			background-image: url("{% static 'landing/logos_ch_tu.png' %}")
+		}
+	</style>
+</head>
+<body>
+	<div id="main">
+		<p>
+			The BAPC 2016 will be held at the
+			Delft University of Technology in
+			The Netherlands<br/><br/>
+			The contest will take place on <strong>October 22</strong><br/><br/>
+			More information on the programme,
+			call for problems and registration
+			will follow soon<br/><br/>
+			For sponsorship inquiries please contact <a href="mailto:extern@ch.tudelft.nl">extern@ch.tudelft.nl</a>
+		</p>
+		<img src="{% static 'landing/logo_bapc.png' %}"/>
+	</div>
+	<div id="logos">
+
+	</div>
+</body>
+</html>

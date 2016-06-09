@@ -17,7 +17,8 @@ MANAGERS = ADMINS
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
-    '.nwerc.eu'
+    '.nwerc.eu',
+    '.bapc.eu',
 ]
 
 # Local time zone for this installation. Choices can be found here:
@@ -143,6 +144,7 @@ TEMPLATE_DIRS = (
 CMS_TEMPLATES = (
     ('home.html', 'Home'),
     ('default.html', 'Default'),
+    ('landing.html', 'Landing'),
 )
 
 INSTALLED_APPS = (
@@ -188,7 +190,7 @@ INSTALLED_APPS = (
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_AGE = 1209600
 
-AUTH_LDAP_SERVER_URI = "ldaps://joost.chnet"
+AUTH_LDAP_SERVER_URI = "ldaps://ank.chnet"
 AUTH_LDAP_BIND_DN = ""
 AUTH_LDAP_BIND_PASSWORD = ""
 AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=ank,dc=chnet", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")

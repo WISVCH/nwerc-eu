@@ -1,5 +1,5 @@
 Django==1.5.1
-PIL==1.1.7
+Pillow==2.9.0
 South==0.8.1
 cmsplugin-filer==0.9.5
 django-appconf==0.6
@@ -21,4 +21,5 @@ python-ldap==2.4.10
 six==1.4.1
 wsgiref==0.1.2
 django-import-export==0.1.4
-
+django-cors-headers
+django-tastypie==0.10.0
