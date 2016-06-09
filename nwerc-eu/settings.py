@@ -143,6 +143,7 @@ TEMPLATE_DIRS = (
 CMS_TEMPLATES = (
     ('home.html', 'Home'),
     ('default.html', 'Default'),
+    ('landing.html', 'Landing'),
 )
 
 INSTALLED_APPS = (
