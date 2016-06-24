@@ -21,8 +21,8 @@ article, aside, dialog, figure, footer, header, hgroup, menu, nav, section, time
 }
 
 body {
-    background: #fff;
-    color: #b0271c;
+    background: #efefef;
+    color: #222;
     font: 75%/1.5em Arial, Helvetica, "DejaVu Sans", "Liberation sans", "Bitstream Vera Sans", sans-serif;
     position: relative
 }
@@ -450,14 +450,15 @@ dt, strong, b {
 #wrap {
     width: 960px;
     margin: 0 auto;
-    border: 1px #b0271c solid;
+    border: 1px #222 solid;
     border-top: 0;
+    background: white;
 }
 
 #head {
-    padding: 10px;
+    padding: 30px;
     background: url(../img/head.png);
-    height: 235px;
+    height: 195px;
     color: #fff;
 }
 
@@ -468,6 +469,9 @@ dt, strong, b {
     list-style: none;
     margin-bottom: 25px;
     position: relative;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+    background: #222;
 }
 
 #menu li {
@@ -480,7 +484,7 @@ dt, strong, b {
     line-height: 25px;
     padding: 0 20px;
     text-decoration: none;
-    color: #b0271c;
+    color: #fff;
 }
 
 #menu ul {
@@ -489,18 +493,25 @@ dt, strong, b {
     position: absolute;
     left: 0;
     height: 25px;
-    background: #b0271c;
+    /*background: white;*/
     width: 100%;
     list-style: none;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
 }
 
-#menu li:hover a, #menu li.selected a, #menu li.ancestor a {
-    background: #b0271c;
-    color: #fff;
+#menu li.selected a {
+    background: #efefef;
+    color: #222;
+}
+
+#menu li:hover a, #menu li.ancestor a {
+    background: #fff;
+    color: #222;
 }
 
 #menu li < ul:hover {
-    background: #b0271c;
+    background: #222;
 }
 
 #menu ul a {
@@ -516,23 +527,25 @@ dt, strong, b {
 }
 
 #content {
-    padding: 10px;
+    padding: 30px;
     overflow: auto;
+    background-color: white;
 }
 
 #sponsors {
     width: 960px;
     margin: 20px auto 10px;
-    border: 1px #b0271c solid;
+    border: 1px #222 solid;
     border-top: 0;
     text-align: center;
+    background: white;
 }
 
 #sponsors h2 {
     display: block;
     line-height: 30px;
     padding: 0 10px;
-    background: #b0271c;
+    background: #222;
     color: #fff;
     height: 30px;
 }
@@ -545,7 +558,7 @@ dt, strong, b {
 /* DOMJudge scoreboard */
 body {
 	color: black;
-	background-color: white;
+	/*background-color: white;*/
 	font-family: sans-serif;
 }
 
@@ -958,4 +971,3 @@ ul.tabbernav li.tabberactive a:hover
 .tabberlive .tabbertab h2 {
 	display:none;
 }
-
