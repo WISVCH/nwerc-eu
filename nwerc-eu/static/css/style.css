@@ -493,12 +493,19 @@ dt, strong, b {
     position: absolute;
     left: 0;
     height: 25px;
-    background: #222;
+    /*background: white;*/
     width: 100%;
     list-style: none;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
 }
 
-#menu li:hover a, #menu li.selected a, #menu li.ancestor a {
+#menu li.selected a {
+    background: #efefef;
+    color: #222;
+}
+
+#menu li:hover a, #menu li.ancestor a {
     background: #fff;
     color: #222;
 }
