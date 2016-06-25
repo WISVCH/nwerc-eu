@@ -500,9 +500,12 @@ dt, strong, b {
     border-bottom: 1px solid #222;
 }
 
+#menu li.selected a {
+    color: #222;
+}
+
 #menu li.selected > a {
     background: #efefef;
-    color: #222;
 }
 
 #menu li:hover a, #menu li.ancestor a {
