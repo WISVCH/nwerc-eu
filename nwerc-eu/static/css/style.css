@@ -553,7 +553,12 @@ dt, strong, b {
 #sponsors img {
     vertical-align: middle;
     margin: 0 10px;
+    max-width: 290px;
 }
+
+/*#sponsors img.main {
+    max-width: 290px;
+}*/
 
 /* DOMJudge scoreboard */
 body {
