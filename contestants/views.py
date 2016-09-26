@@ -39,7 +39,7 @@ class ImportView(FormView):
             p.last_name = d['last name']
             p.prefered_name = d['prefered name']
             p.certificate_name = d['certificate name']
-            p.gender = d['gender'][:1]
+            p.gender = d['sex'][:1]
             p.email = d['email']
             if d['Date of birth'] != '' and d['Date of birth'] != 'null':
                 p.date_of_birth = datetime.strptime(d['Date of birth'], '%m/%d/%Y')
@@ -51,9 +51,9 @@ class ImportView(FormView):
         keys = f.readline().split('\t')
         for line in f.readlines():
             d = dict(zip(keys, line.split('\t')))
-            i = Institution.objects.get_or_create(institution_id=d['institution Id'])[0]
-            i.name = d['institution Name']
-            i.short_name = d['institution short name']
+            i = Institution.objects.get_or_create(institution_id=d['institution-unit Id'])[0]
+            i.name = d['institution-unit name']
+            i.short_name = d['institution-unit short name']
             i.country = Country.objects.get_or_create(ICPC_name=d['country'])[0]
             i.save()
         f.close()
@@ -64,7 +64,7 @@ class ImportView(FormView):
             d = dict(zip(keys, line.split('\t')))
             t = Team.objects.get_or_create(team_id=d['team Id'])[0]
             t.name = d['team Name']
-            t.institution = Institution.objects.get(institution_id=d['institution Id'])
+            t.institution = Institution.objects.get(institution_id=d['institution-unit Id'])
             t.status = d['team status']
             # t.created = d['date created']
             t.save()
