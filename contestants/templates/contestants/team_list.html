@@ -19,11 +19,12 @@
                 <td>{{ object.name }}</td>
                 <td style="text-align:center;">{% spaceless %}
                     {% if object.status == 'A' %}
-                        <img src="{{ STATIC_URL }}img/icons/accept.png" alt="accepted" title="Accepted">
-                        {% else %}{% if object.status == 'P' %}
-                            <img src="{{ STATIC_URL }}img/icons/hourglass.png" alt="Pending" title="Pending">
-                            {% else %}<img src="{{ STATIC_URL }}img/icons/cancel.png" alt="Canceled" title="Canceled">
-                        {% endif %}{% endif %}
+                      <i class="fa fa-check"></i>
+                    {% else %}{% if object.status == 'P' %}
+                      <i class="fa fa-hourglass"></i>
+                    {% else %}
+                      <i class="fa fa-ban"></i>
+                    {% endif %}{% endif %}
                 {% endspaceless %}</td>
             </tr>
         {% endfor %}
